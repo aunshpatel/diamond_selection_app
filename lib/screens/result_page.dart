@@ -32,7 +32,7 @@ class _ResultPageState extends State<ResultPage> {
               itemBuilder: (context, index) {
                 final diamond = diamonds[index];
                 return ListTile(
-                  leading: Text("${diamond.id}) ", style: TextStyle(fontSize: 18)),
+                  leading: Text("${index+1}) ", style: TextStyle(fontSize: 18)),
                   title: Text("Lot ID: ${diamond.lotID}", style: TextStyle(fontSize: 16)),
                   subtitle: Text(
                       "Carat: ${diamond.carat}, Shape: ${diamond.shape}, Color: ${diamond.color}, Clarity: ${diamond.clarity}",
