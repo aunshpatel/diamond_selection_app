@@ -111,7 +111,7 @@ class _FilterPageState extends State<FilterPage> {
 
             ElevatedButton(
               onPressed: _applyFilters,
-              child: Text("Filter"),
+              child: Text("Search"),
             ),
 
             BlocBuilder<DiamondBloc, DiamondState>(
