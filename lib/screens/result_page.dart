@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../blocs/cart_bloc.dart';
 import '../blocs/diamond_bloc.dart';
 import '../models/diamondModel.dart';
+import 'cart_page.dart';
 
 class ResultPage extends StatefulWidget {
   const ResultPage({super.key});
@@ -31,15 +33,6 @@ class _ResultPageState extends State<ResultPage> {
               itemCount: diamonds.length,
               itemBuilder: (context, index) {
                 final diamond = diamonds[index];
-                /*return ListTile(
-                  leading: Text("${index+1}) ", style: TextStyle(fontSize: 18)),
-                  title: Text("Lot ID: ${diamond.lotID}", style: TextStyle(fontSize: 16)),
-                  subtitle: Text(
-                      "Carat: ${diamond.carat}, Shape: ${diamond.shape}, Color: ${diamond.color}, Clarity: ${diamond.clarity}",
-                      style: TextStyle(fontSize: 14)
-                  ),
-                  trailing: Text("\$${diamond.finalAmount}", style: TextStyle(fontSize: 16)),
-                );*/
                 return Card(
                   margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -49,7 +42,23 @@ class _ResultPageState extends State<ResultPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text("#${index + 1} - Lot ID: ${diamond.lotID}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Flexible(
+                              child: Text("${index + 1}) Lot ID: ${diamond.lotID}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                            ),
+                            ElevatedButton(
+                              onPressed: () {
+                                context.read<CartBloc>().add(AddToCart(diamond));
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text("${diamond.lotID} added to cart"))
+                                );
+                              },
+                              child: const Text("Add to Cart"),
+                            ),
+                          ],
+                        ),
                         Divider(),
                         Text("Carat: ${diamond.carat} ct", style: TextStyle(fontSize: 16)),
                         Text("Size: ${diamond.size}", style: TextStyle(fontSize: 16)),
@@ -77,6 +86,15 @@ class _ResultPageState extends State<ResultPage> {
             return Center(child: Text('Unexpected state. Please try again.'));
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => CartPage()),
+          );
+        },
+        child: const Icon(Icons.shopping_cart),
       ),
     );
   }
