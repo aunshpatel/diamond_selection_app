@@ -1,6 +1,7 @@
 import 'package:diamond_selection_app/screens/filter_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'blocs/cart_bloc.dart';
 import 'blocs/diamond_bloc.dart';
 
 void main() {
@@ -12,8 +13,11 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => DiamondBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (_) => DiamondBloc()),
+        BlocProvider(create: (_) => CartBloc()..add(LoadCart())),
+      ],
       child: MaterialApp(
         title: 'Diamond App',
         theme: ThemeData(
