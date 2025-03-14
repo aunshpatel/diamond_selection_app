@@ -109,9 +109,26 @@ class _FilterPageState extends State<FilterPage> {
 
             SizedBox(height: 20),
 
-            ElevatedButton(
-              onPressed: _applyFilters,
-              child: Text("Search"),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 8.0),
+              child: Material(
+                color:Color(0XFF3A4355),
+                elevation: 5.0,
+                borderRadius: BorderRadius.circular(30.0),
+                child: MaterialButton(
+                  onPressed: _applyFilters,
+                  minWidth: 150.0,
+                  height: 60.0,
+                  child: Text(
+                      'Search',
+                      style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white
+                      )
+                  ),
+                ),
+              ),
             ),
 
             BlocBuilder<DiamondBloc, DiamondState>(
