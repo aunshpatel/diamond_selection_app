@@ -94,7 +94,8 @@ class _ResultPageState extends State<ResultPage> {
             MaterialPageRoute(builder: (context) => CartPage()),
           );
         },
-        child: const Icon(Icons.shopping_cart),
+        backgroundColor: Color(0XFF3A4355),
+        child: const Icon(Icons.shopping_cart, color: Colors.white,),
       ),
     );
   }
