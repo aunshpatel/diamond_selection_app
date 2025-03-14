@@ -48,14 +48,31 @@ class _ResultPageState extends State<ResultPage> {
                             Flexible(
                               child: Text("${index + 1}) Lot ID: ${diamond.lotID}", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                             ),
-                            ElevatedButton(
-                              onPressed: () {
-                                context.read<CartBloc>().add(AddToCart(diamond));
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text("${diamond.lotID} added to cart"))
-                                );
-                              },
-                              child: const Text("Add to Cart"),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 8.0),
+                              child: Material(
+                                color:Color(0XFF3A4355),
+                                elevation: 5.0,
+                                borderRadius: BorderRadius.circular(30.0),
+                                child: MaterialButton(
+                                  onPressed: () {
+                                    context.read<CartBloc>().add(AddToCart(diamond));
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                        SnackBar(content: Text("${diamond.lotID} added to cart"))
+                                    );
+                                  },
+                                  minWidth: 50.0,
+                                  // height: 20.0,
+                                  child: Text(
+                                    'Add to Cart',
+                                    style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white
+                                    )
+                                  ),
+                                ),
+                              ),
                             ),
                           ],
                         ),
