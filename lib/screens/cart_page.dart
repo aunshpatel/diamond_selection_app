@@ -101,10 +101,7 @@ class _CartPageState extends State<CartPage> {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Flexible(
-                                  child: Text("${index + 1}) Lot ID: ${diamond.lotID}",
-                                      style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                                ),
+                                Flexible(child: Text("${index + 1}) Lot ID: ${diamond.lotID}", style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold))),
                                 IconButton(
                                   icon: const Icon(Icons.delete, color: Colors.red),
                                   onPressed:() async {
