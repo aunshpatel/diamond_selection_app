@@ -66,7 +66,13 @@ class _FilterPageState extends State<FilterPage> {
 
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Filter Diamonds")),
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.white,
+        ),
+        title: Text("Filter Diamonds", style: TextStyle(color: Colors.white),),
+        backgroundColor: Color(0XFF3A4355)
+      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
