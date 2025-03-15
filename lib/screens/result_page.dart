@@ -43,6 +43,7 @@ class _ResultPageState extends State<ResultPage> {
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
+        centerTitle: true,
         title: Text('Diamond Results', style: TextStyle(color: Colors.white),),
         backgroundColor: Color(0XFF3A4355)
       ),

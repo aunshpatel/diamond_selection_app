@@ -70,6 +70,7 @@ class _FilterPageState extends State<FilterPage> {
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
+        centerTitle: true,
         title: Text("Filter Diamonds", style: TextStyle(color: Colors.white),),
         backgroundColor: Color(0XFF3A4355)
       ),

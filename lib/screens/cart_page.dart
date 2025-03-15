@@ -39,6 +39,7 @@ class _CartPageState extends State<CartPage> {
         iconTheme: IconThemeData(
           color: Colors.white,
         ),
+        centerTitle: true,
         title: Text("Cart", style: TextStyle(color: Colors.white),),
         backgroundColor: Color(0XFF3A4355)
       ),
