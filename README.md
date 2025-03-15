@@ -1,7 +1,7 @@
 # Diamond Selection App
 This app is created as an answer to test. I am Aunsh Patel.
 
-## Project Structure
+## Project Structure:
 The structure of this project is as below:
 ```
 diamond_selection_app/
@@ -28,11 +28,12 @@ diamond_selection_app/
 ├── pubspec.yaml                # Flutter package dependencies and assets configuration
 └── README.md                   # Project information
 ```
-## State Management Logic
+## State Management Logic:
 This app uses BLoC(Business Logic Component) for state management. This pattern allows the creator of a project to separate business logic from UI, which would make it easy to make the codebase easy to test.
 
-## Persistent Storage Usage
-The app uses SharedPreferences for persistent storage, allowing data to persist even after the app is closed. This is essential for scenarios where users may want to save their diamond selections.
+## Persistent Storage Usage:
+To ensure that the data persists even after app restarts, **SharedPreferences** is used for local storage. This app also uses SharedPreferences for persistent storage, allowing data to persist even after the app is closed. This is essential for scenarios where users may want to save their diamond selections.
 
-### How persistent storage is used in the app:
-- Cart Data Persistence: When diamonds are added to the cart, the cart data is saved into SharedPreferences. This ensures that even after restarting the app, the selected diamonds will remain in the cart.
+#### How persistent storage is used in the app:
+- Cart Data Persistence: 
+  When diamonds are added to the cart, the cart data is saved into SharedPreferences. This ensures that even after restarting the app, the selected diamonds will remain in the cart.
