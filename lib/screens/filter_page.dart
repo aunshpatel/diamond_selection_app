@@ -18,14 +18,34 @@ class _FilterPageState extends State<FilterPage> {
   String? _selectedColor;
   String? _selectedClarity;
 
-  final List<String> _shapes = ["Round", "Oval", "Princess", "Cushion", "Emerald"];
-  final List<String> _labs = ["GIA", "IGI", "HRD"];
-  final List<String> _colors = ["D", "E", "F", "G", "H"];
-  final List<String> _clarities = ["IF", "VVS1", "VVS2", "VS1", "VS2"];
+  final List<String> _shapes = ["All","Round", "Oval", "Princess", "Cushion", "Emerald"];
+  final List<String> _labs = ["All","GIA", "IGI", "HRD"];
+  final List<String> _colors = ["All","D", "E", "F", "G", "H"];
+  final List<String> _clarities = ["All","IF", "VVS1", "VVS2", "VS1", "VS2"];
 
   void _applyFilters() {
     final double? minCarat = _minCaratController.text.isNotEmpty ? double.tryParse(_minCaratController.text) : null;
     final double? maxCarat = _maxCaratController.text.isNotEmpty ? double.tryParse(_maxCaratController.text) : null;
+    if(_selectedShape == 'All') {
+      setState(() {
+        _selectedShape = null;
+      });
+    }
+    if(_selectedLab == 'All') {
+      setState(() {
+        _selectedLab = null;
+      });
+    }
+    if(_selectedColor == 'All') {
+      setState(() {
+        _selectedColor = null;
+      });
+    }
+    if(_selectedClarity == 'All') {
+      setState(() {
+        _selectedClarity = null;
+      });
+    }
 
     context.read<DiamondBloc>().add(
       FilterDiamonds(
