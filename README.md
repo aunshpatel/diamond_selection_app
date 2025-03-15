@@ -1,5 +1,6 @@
 # Diamond Selection App
-This app is created as an answer to test. I am Aunsh Patel.
+This diamond selection app is created by me, Aunsh Patel, as an answer to test provided on the following link:
+https://docs.google.com/document/d/1nN9jZsj6GaUUr2GEXS2Oao0AT32TpBPeY5L5z3OwSME/edit?tab=t.0
 
 ## Project Structure:
 The structure of this project is as below:
