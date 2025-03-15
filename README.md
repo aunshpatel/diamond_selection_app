@@ -3,7 +3,7 @@ This diamond selection app is created by me, Aunsh Patel, as an answer to assess
 https://docs.google.com/document/d/1nN9jZsj6GaUUr2GEXS2Oao0AT32TpBPeY5L5z3OwSME/edit?tab=t.0
 
 ## Project Structure:
-The structure of this project is as below:
+The structure of this project is as below. I chose to seperate blocs, data value file, models and the screens(UI) folsers so that it would become easier to seperate the processes that are made in order to display data. This would ease the process of pinpointing places where errors might have occurred.
 ```
 diamond_selection_app/
 │
@@ -11,9 +11,9 @@ diamond_selection_app/
 ├── ios/                        # iOS-specific configurations
 ├── lib/
 │   ├── blocs/                  # All BLoC-related files (Business Logic Component)
-│   │   └──  diamond_bloc.dart   # Diamond BLoC
+│   │   └──  diamond_bloc.dart  # Diamond BLoC
 │   ├── data/                   # Data-related files (e.g., external files, data services)
-│   │   └──  data.dart           # Example of data file
+│   │   └──  data.dart          # Example of data file
 │   ├── models/                 # Models for the app (Diamond Model)
 │   │   └── diamond_model.dart  # Diamond model (represents a Diamond)
 │   ├── screens/                # UI Screens/Pages
