@@ -1,16 +1,28 @@
-# diamond_selection_app
+# Diamond Selection App
+This app is created as an answer to test. I am Aunsh Patel.
 
-An application for diamond selection
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Project Structure
+The structure of this project is as below:
+diamond_selection_app/
+│
+├── android/                    # Android-specific configurations
+├── ios/                        # iOS-specific configurations
+├── lib/
+│   ├── blocs/                  # All BLoC-related files (Business Logic Component)
+│   │   └──  diamond_bloc.dart   # Diamond BLoC
+│   ├── data/                   # Data-related files (e.g., external files, data services)
+│   │   └──  data.dart           # Example of data file
+│   ├── models/                 # Models for the app (Diamond Model)
+│   │   └── diamond_model.dart  # Diamond model (represents a Diamond)
+│   ├── screens/                # UI Screens/Pages
+│   │   ├── cart_page.dart      # Cart page to show the diamonds added to cart
+│   │   └── result_page.dart    # Result page to show the filtered and sorted diamonds
+│   │   └── filter_page.dart    # Filter page with sorting controls
+│   └── main.dart               # Entry point of the Flutter app
+├── linux/                      # Linux-specific configurations
+├── macos/                      # MacOS-specific configurations
+├── test/                       # Empty folder
+├── web/                        # Web-specific configurations
+├── windows/                    # Windows-specific configurations
+├── pubspec.yaml                # Flutter package dependencies and assets configuration
+└── README.md                   # Project information
