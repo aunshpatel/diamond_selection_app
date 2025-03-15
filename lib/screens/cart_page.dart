@@ -120,7 +120,7 @@ class _CartPageState extends State<CartPage> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Text("Summary", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                    Text("Total Carat: $totalCarat"),
+                    Text("Total Carat: ${totalCarat.toStringAsFixed(2)}"),
                     Text("Total Price: \$${totalPrice.toStringAsFixed(2)}"),
                     Text("Average Price: \$${avgPrice.toStringAsFixed(2)}"),
                     Text("Average Discount: ${avgDiscount.toStringAsFixed(2)}%"),
