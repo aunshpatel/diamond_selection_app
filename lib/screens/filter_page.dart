@@ -140,12 +140,12 @@ class _FilterPageState extends State<FilterPage> {
                   minWidth: 150.0,
                   height: 60.0,
                   child: Text(
-                      'Search',
-                      style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white
-                      )
+                    'Search',
+                    style: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white
+                    )
                   ),
                 ),
               ),

@@ -98,7 +98,7 @@ class _ResultPageState extends State<ResultPage> {
                   final List<Diamond> diamonds = state.diamonds;
 
                   if (diamonds.isEmpty) {
-                    return Center(child: Text('No diamonds match the selected criteria.'));
+                    return Center(child: Text('No diamonds match the selected criteria.', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500)));
                   }
 
                   return ListView.builder(
@@ -132,9 +132,7 @@ class _ResultPageState extends State<ResultPage> {
                                       elevation: 5.0,
                                       borderRadius: BorderRadius.circular(30.0),
                                       child: MaterialButton(
-                                        onPressed: isInCart
-                                            ? null
-                                            : () {
+                                        onPressed: isInCart ? null : () {
                                           context.read<CartBloc>().add(AddToCart(diamond));
                                           setState(() {
                                             cartItems.add(diamond.lotID);
@@ -185,7 +183,7 @@ class _ResultPageState extends State<ResultPage> {
                     },
                   );
                 } else {
-                  return Center(child: Text('Unexpected state. Please try again.'));
+                  return Center(child: Text('Unexpected state. Please try again.', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500)));
                 }
               },
             ),

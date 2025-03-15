@@ -39,7 +39,7 @@ class _CartPageState extends State<CartPage> {
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state.cartDiamonds.isEmpty) {
-            return const Center(child: Text("Cart is empty."));
+            return const Center(child: Text("Your cart is empty.", style: TextStyle(fontSize: 24, fontWeight: FontWeight.w500)),);
           }
 
           double totalCarat = state.cartDiamonds.fold(0, (sum, d) => sum + d.carat);
