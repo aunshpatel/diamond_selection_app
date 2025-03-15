@@ -36,6 +36,33 @@ class _ResultPageState extends State<ResultPage> {
     prefs.setStringList('cartItems', cartItems.toList());
   }
 
+  Future<void> addDiamondMessage(String diamondLotID) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog.adaptive(
+          title: Text('SUCCESS!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Color(0XFF3A4355))),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('$diamondLotID added to cart successfully.', style: TextStyle(color: Color(0XFF3A4355), fontSize: 18, fontWeight:FontWeight.w500)),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK', style: TextStyle(color: Color(0XFF3A4355), fontSize: 18, fontWeight:FontWeight.w500)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -145,9 +172,7 @@ class _ResultPageState extends State<ResultPage> {
                                             cartItems.add(diamond.lotID);
                                             _updateCartState();
                                           });
-                                          ScaffoldMessenger.of(context).showSnackBar(
-                                            SnackBar(content: Text("${diamond.lotID} added to cart")),
-                                          );
+                                          addDiamondMessage(diamond.lotID);
                                         },
                                         minWidth: 50.0,
                                         child: Text(

@@ -32,6 +32,33 @@ class _CartPageState extends State<CartPage> {
     setState(() {});
   }
 
+  Future<void> removalMessage(String diamondLotID) {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog.adaptive(
+          title: Text('SUCCESS!', style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Color(0XFF3A4355))),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('$diamondLotID removed successfully from cart.', style: TextStyle(color: Color(0XFF3A4355), fontSize: 18, fontWeight:FontWeight.w500)),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('OK', style: TextStyle(color: Color(0XFF3A4355), fontSize: 18, fontWeight:FontWeight.w500)),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -80,13 +107,11 @@ class _CartPageState extends State<CartPage> {
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.delete, color: Colors.red),
-                                  onPressed: () async {
+                                  onPressed:() async {
                                     context.read<CartBloc>().add(RemoveFromCart(diamond));
                                     await _updateCartState(diamond.lotID, false);
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      SnackBar(content: Text("${diamond.lotID} removed from cart")),
-                                    );
-                                  },
+                                    removalMessage(diamond.lotID);
+                                  }
                                 ),
                               ],
                             ),
