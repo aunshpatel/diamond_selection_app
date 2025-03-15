@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../blocs/cart_bloc.dart';
 import '../blocs/diamond_bloc.dart';
 import '../models/diamondModel.dart';
@@ -15,6 +16,25 @@ class ResultPage extends StatefulWidget {
 class _ResultPageState extends State<ResultPage> {
   String _selectedPriceOrder = "Default";
   String _selectedCaratOrder = "Default";
+  Set<String> cartItems = {};
+
+  @override
+  void initState() {
+    super.initState();
+    _loadCartState();
+  }
+
+  void _loadCartState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      cartItems = prefs.getStringList('cartItems')?.toSet() ?? {};
+    });
+  }
+
+  void _updateCartState() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setStringList('cartItems', cartItems.toList());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +51,7 @@ class _ResultPageState extends State<ResultPage> {
                   children: [
                     Text('Final Price Filter:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     buildSortDropdown(_selectedPriceOrder, ["Default", "Low to High", "High to Low"],
-                      (value) {
+                          (value) {
                         setState(() {
                           _selectedPriceOrder = value;
                         });
@@ -51,7 +71,7 @@ class _ResultPageState extends State<ResultPage> {
                   children: [
                     Text('Carat Weight Filter:', style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                     buildSortDropdown(_selectedCaratOrder, ["Default", "Low to High", "High to Low"],
-                      (value) {
+                          (value) {
                         setState(() {
                           _selectedCaratOrder = value;
                         });
@@ -85,6 +105,8 @@ class _ResultPageState extends State<ResultPage> {
                     itemCount: diamonds.length,
                     itemBuilder: (context, index) {
                       final diamond = diamonds[index];
+                      bool isInCart = cartItems.contains(diamond.lotID);
+
                       return Card(
                         margin: EdgeInsets.symmetric(vertical: 8, horizontal: 12),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -106,20 +128,26 @@ class _ResultPageState extends State<ResultPage> {
                                   Padding(
                                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                                     child: Material(
-                                      color: Color(0XFF3A4355),
+                                      color: isInCart ? Color.fromARGB(128, 58, 67, 85) : Color(0XFF3A4355),
                                       elevation: 5.0,
                                       borderRadius: BorderRadius.circular(30.0),
                                       child: MaterialButton(
-                                        onPressed: () {
+                                        onPressed: isInCart
+                                            ? null
+                                            : () {
                                           context.read<CartBloc>().add(AddToCart(diamond));
+                                          setState(() {
+                                            cartItems.add(diamond.lotID);
+                                            _updateCartState();
+                                          });
                                           ScaffoldMessenger.of(context).showSnackBar(
                                             SnackBar(content: Text("${diamond.lotID} added to cart")),
                                           );
                                         },
                                         minWidth: 50.0,
                                         child: Text(
-                                          'Add to Cart',
-                                          style: const TextStyle(
+                                          isInCart ? 'Added to Cart' : 'Add to Cart',
+                                          style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white,
@@ -169,7 +197,11 @@ class _ResultPageState extends State<ResultPage> {
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => CartPage()),
-          );
+          ).then((_) {
+            setState(() {
+              _loadCartState();
+            });
+          });
         },
         backgroundColor: Color(0XFF3A4355),
         child: const Icon(Icons.shopping_cart, color: Colors.white),
@@ -177,7 +209,6 @@ class _ResultPageState extends State<ResultPage> {
     );
   }
 
-  /// Dropdown Builder Function
   Widget buildSortDropdown(String selectedValue, List<String> options, Function(String) onChanged) {
     return Padding(
       padding: const EdgeInsets.only(left: 8.0),

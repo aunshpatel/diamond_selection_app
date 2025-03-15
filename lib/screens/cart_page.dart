@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../blocs/cart_bloc.dart';
 
@@ -15,14 +16,30 @@ class _CartPageState extends State<CartPage> {
     context.read<CartBloc>().add(LoadCart());
   }
 
+  Future<void> _updateCartState(String lotID, bool isAdded) async {
+    final prefs = await SharedPreferences.getInstance();
+    List<String> cartItems = prefs.getStringList('cartItems') ?? [];
+
+    if (isAdded) {
+      if (!cartItems.contains(lotID)) {
+        cartItems.add(lotID);
+      }
+    } else {
+      cartItems.remove(lotID);
+    }
+
+    await prefs.setStringList('cartItems', cartItems);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Cart")),
+      appBar: AppBar(title: const Text("Cart")),
       body: BlocBuilder<CartBloc, CartState>(
         builder: (context, state) {
           if (state.cartDiamonds.isEmpty) {
-            return Center(child: Text("Cart is empty."));
+            return const Center(child: Text("Cart is empty."));
           }
 
           double totalCarat = state.cartDiamonds.fold(0, (sum, d) => sum + d.carat);
@@ -37,18 +54,6 @@ class _CartPageState extends State<CartPage> {
                   itemCount: state.cartDiamonds.length,
                   itemBuilder: (context, index) {
                     final diamond = state.cartDiamonds[index];
-                    // return ListTile(
-                    //   title: Text("Lot ID: ${diamond.lotID}"),
-                    //   subtitle: Text(
-                    //     "Carat: ${diamond.carat}, Shape: ${diamond.shape}, Color: ${diamond.color}, Clarity: ${diamond.clarity}, Discount: ${diamond.discount}%, Price: \$${diamond.finalAmount}",
-                    //   ),
-                    //   trailing: IconButton(
-                    //     icon: Icon(Icons.delete, color: Colors.red),
-                    //     onPressed: () {
-                    //       context.read<CartBloc>().add(RemoveFromCart(diamond));
-                    //     },
-                    //   ),
-                    // );
 
                     return Card(
                       margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -68,10 +73,11 @@ class _CartPageState extends State<CartPage> {
                                 ),
                                 IconButton(
                                   icon: const Icon(Icons.delete, color: Colors.red),
-                                  onPressed: () {
+                                  onPressed: () async {
                                     context.read<CartBloc>().add(RemoveFromCart(diamond));
+                                    await _updateCartState(diamond.lotID, false);
                                     ScaffoldMessenger.of(context).showSnackBar(
-                                        SnackBar(content: Text("${diamond.lotID} removed from cart"))
+                                      SnackBar(content: Text("${diamond.lotID} removed from cart")),
                                     );
                                   },
                                 ),
@@ -102,11 +108,11 @@ class _CartPageState extends State<CartPage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.all(16),
+                padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Summary", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    const Text("Summary", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
                     Text("Total Carat: $totalCarat"),
                     Text("Total Price: \$${totalPrice.toStringAsFixed(2)}"),
                     Text("Average Price: \$${avgPrice.toStringAsFixed(2)}"),
