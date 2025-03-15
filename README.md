@@ -36,4 +36,4 @@ To ensure that the data persists even after app restarts, **SharedPreferences** 
 
 #### How persistent storage is used in the app:
 - Cart Data Persistence: 
-  When diamonds are added to the cart, the cart data is saved into SharedPreferences. This ensures that even after restarting the app, the selected diamonds will remain in the cart.
+  When diamonds are added to or removed from the cart, the cart data is saved into SharedPreferences. This ensures that even after restarting the app, the selected diamonds will remain in the cart.
